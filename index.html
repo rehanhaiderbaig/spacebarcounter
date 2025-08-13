@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spacebar Counter - Test Your Clicking Speed</title>
+    <title>Spacebar Counter - Test Your Clicking Speed with 8 Challenge Games</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
@@ -21,7 +21,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -261,14 +261,14 @@
         
         .challenges-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         .challenge-card {
             background: white;
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
             box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
@@ -281,19 +281,19 @@
         
         .challenge-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .challenge-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            margin: 0 auto 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 28px;
+            font-size: 20px;
         }
         
         .challenge-icon.speed { 
@@ -308,28 +308,48 @@
             background: linear-gradient(135deg, #8b5cf6, #ec4899);
             box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
         }
+        .challenge-icon.precision { 
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .challenge-icon.burst { 
+            background: linear-gradient(135deg, #eab308, #f59e0b);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+        }
+        .challenge-icon.simon { 
+            background: linear-gradient(135deg, #6366f1, #3b82f6);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        .challenge-icon.doubletap { 
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+        .challenge-icon.combo { 
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
         
         .challenge-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .challenge-desc {
             color: #64748b;
-            font-size: 14px;
+            font-size: 12px;
         }
         
         .challenge-stats {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .challenge-stat {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 6px;
+            font-size: 12px;
         }
         
         .challenge-stat-label {
@@ -344,39 +364,49 @@
         .challenge-stat-value.green { color: #16a34a; }
         .challenge-stat-value.orange { color: #ea580c; }
         .challenge-stat-value.purple { color: #9333ea; }
+        .challenge-stat-value.red { color: #dc2626; }
+        .challenge-stat-value.yellow { color: #ca8a04; }
+        .challenge-stat-value.pink { color: #db2777; }
+        .challenge-stat-value.teal { color: #0d9488; }
         
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #e2e8f0;
-            border-radius: 4px;
-            margin-bottom: 24px;
+            border-radius: 3px;
+            margin-bottom: 16px;
             overflow: hidden;
         }
         
         .progress-fill {
             height: 100%;
-            border-radius: 4px;
+            border-radius: 3px;
             transition: width 0.3s ease;
         }
         
         .progress-fill.speed { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
         .progress-fill.endurance { background: linear-gradient(90deg, #10b981, #059669); }
         .progress-fill.rhythm { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+        .progress-fill.precision { background: linear-gradient(90deg, #ef4444, #f97316); }
+        .progress-fill.burst { background: linear-gradient(90deg, #eab308, #f59e0b); }
+        .progress-fill.simon { background: linear-gradient(90deg, #6366f1, #3b82f6); }
+        .progress-fill.doubletap { background: linear-gradient(90deg, #ec4899, #f43f5e); }
+        .progress-fill.combo { background: linear-gradient(90deg, #10b981, #14b8a6); }
         
         .challenge-button {
             width: 100%;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             color: white;
+            font-size: 12px;
         }
         
         .challenge-button.speed {
@@ -394,6 +424,31 @@
             box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
         }
         
+        .challenge-button.precision {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        
+        .challenge-button.burst {
+            background: linear-gradient(135deg, #eab308, #f59e0b);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+        }
+        
+        .challenge-button.simon {
+            background: linear-gradient(135deg, #6366f1, #3b82f6);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .challenge-button.doubletap {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+        
+        .challenge-button.combo {
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
         .challenge-button:hover {
             transform: scale(1.05);
         }
@@ -405,11 +460,11 @@
         }
         
         .rhythm-indicator {
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             background: linear-gradient(135deg, #8b5cf6, #ec4899);
             border-radius: 50%;
-            margin: 0 auto 24px;
+            margin: 0 auto 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -418,8 +473,8 @@
         
         .rhythm-indicator::after {
             content: '';
-            width: 24px;
-            height: 24px;
+            width: 16px;
+            height: 16px;
             background: white;
             border-radius: 50%;
         }
@@ -428,9 +483,34 @@
             animation: rhythmPulse 1s ease-in-out infinite;
         }
         
+        .burst-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .burst-indicator.waiting {
+            background: #94a3b8;
+        }
+        
+        .burst-indicator.burst {
+            background: linear-gradient(135deg, #eab308, #f59e0b);
+            animation: burstPulse 0.5s ease-in-out infinite;
+        }
+        
         @keyframes rhythmPulse {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        @keyframes burstPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
         }
         
         /* Particle Effect */
@@ -494,7 +574,7 @@
                     <div class="logo-icon">⌨️</div>
                     <div>
                         <div class="logo-text">Spacebar Counter</div>
-                        <div style="font-size: 12px; color: #64748b;">Test your clicking speed and endurance</div>
+                        <div style="font-size: 12px; color: #64748b;">Test your clicking speed with 8 challenge games</div>
                     </div>
                 </div>
             </div>
@@ -549,7 +629,7 @@
 
         <!-- Challenges -->
         <section class="challenges-section">
-            <h3 class="section-title">Challenge Games</h3>
+            <h3 class="section-title">8 Challenge Games</h3>
             <div class="challenges-grid">
                 <!-- Speed Challenge -->
                 <div class="challenge-card">
@@ -647,12 +727,195 @@
                         <span>Start Challenge</span>
                     </button>
                 </div>
+
+                <!-- Precision Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon precision">🎯</div>
+                        <h4 class="challenge-title">Precision Challenge</h4>
+                        <p class="challenge-desc">Click at exact target times!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time Left:</span>
+                            <span class="challenge-stat-value red" id="precisionTimeLeft">30s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Target:</span>
+                            <span class="challenge-stat-value blue" id="precisionTarget">1/10</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Score:</span>
+                            <span class="challenge-stat-value green" id="precisionScore">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best:</span>
+                            <span class="challenge-stat-value orange" id="precisionBest">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill precision" id="precisionProgress" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="challenge-button precision" id="startPrecisionChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Burst Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon burst">✨</div>
+                        <h4 class="challenge-title">Burst Challenge</h4>
+                        <p class="challenge-desc">Click rapidly during burst phases!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time Left:</span>
+                            <span class="challenge-stat-value yellow" id="burstTimeLeft">60s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Phase:</span>
+                            <span class="challenge-stat-value blue" id="burstPhase">Wait...</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Score:</span>
+                            <span class="challenge-stat-value green" id="burstScore">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best:</span>
+                            <span class="challenge-stat-value orange" id="burstBest">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="burst-indicator waiting" id="burstIndicator">⏳</div>
+                    
+                    <button class="challenge-button burst" id="startBurstChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Simon Says Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon simon">🧠</div>
+                        <h4 class="challenge-title">Simon Says</h4>
+                        <p class="challenge-desc">Repeat the sequence pattern!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Level:</span>
+                            <span class="challenge-stat-value blue" id="simonLevel">1</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best Level:</span>
+                            <span class="challenge-stat-value orange" id="simonBest">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Status:</span>
+                            <span class="challenge-stat-value green" id="simonStatus">Ready</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: center; gap: 4px;">
+                            <div style="width: 8px; height: 8px; background: #6366f1; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                            <div style="width: 8px; height: 8px; background: #06b6d4; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="challenge-button simon" id="startSimonChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Double Tap Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon doubletap">👆</div>
+                        <h4 class="challenge-title">Double Tap</h4>
+                        <p class="challenge-desc">Click in pairs within 500ms!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time Left:</span>
+                            <span class="challenge-stat-value pink" id="doubleTapTimeLeft">30s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Valid Pairs:</span>
+                            <span class="challenge-stat-value green" id="doubleTapValid">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Streak:</span>
+                            <span class="challenge-stat-value blue" id="doubleTapStreak">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best:</span>
+                            <span class="challenge-stat-value orange" id="doubleTapBest">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill doubletap" id="doubleTapProgress" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="challenge-button doubletap" id="startDoubleTapChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Combo Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon combo">🔥</div>
+                        <h4 class="challenge-title">Combo Challenge</h4>
+                        <p class="challenge-desc">Maintain consistent clicking rhythm!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time Left:</span>
+                            <span class="challenge-stat-value teal" id="comboTimeLeft">45s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Current Combo:</span>
+                            <span class="challenge-stat-value yellow" id="comboCurrentStreak">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Max Combo:</span>
+                            <span class="challenge-stat-value blue" id="comboMaxStreak">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best:</span>
+                            <span class="challenge-stat-value orange" id="comboBest">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill combo" id="comboProgress" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="challenge-button combo" id="startComboChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        // Game State
+        // Game State with all 8 challenges
         let gameState = {
             totalClicks: 0,
             clicksPerSecond: 0,
@@ -663,7 +926,12 @@
             challenges: {
                 speed: { active: false, timeLeft: 10, score: 0, bestScore: 0, startTime: null },
                 endurance: { active: false, progress: 0, time: 0, bestTime: null, startTime: null },
-                rhythm: { active: false, bpm: 120, accuracy: 0, score: 0, expectedBeats: 0, actualBeats: 0 }
+                rhythm: { active: false, bpm: 120, accuracy: 0, score: 0, expectedBeats: 0, actualBeats: 0 },
+                precision: { active: false, timeLeft: 30, targets: [], currentTarget: 0, score: 0, bestScore: 0, totalTargets: 10 },
+                burst: { active: false, timeLeft: 60, burstPhase: false, burstTimeLeft: 0, score: 0, bestScore: 0, currentBurstClicks: 0, totalBursts: 0 },
+                simon: { active: false, sequence: [], userSequence: [], currentLevel: 1, bestLevel: 0, showingSequence: false, waitingForInput: false, sequenceIndex: 0 },
+                doubleTap: { active: false, timeLeft: 30, lastClickTime: null, validDoubleTaps: 0, invalidClicks: 0, bestScore: 0, currentStreak: 0, maxStreak: 0 },
+                combo: { active: false, timeLeft: 45, currentCombo: 0, maxCombo: 0, bestCombo: 0, lastClickTime: null, comboTimeWindow: 1000, score: 0 }
             }
         };
 
@@ -680,7 +948,7 @@
         const soundIconEl = document.getElementById('soundIcon');
         const soundTextEl = document.getElementById('soundText');
 
-        // Challenge elements
+        // Challenge elements - Speed
         const speedElements = {
             timeLeft: document.getElementById('speedTimeLeft'),
             score: document.getElementById('speedScore'),
@@ -689,6 +957,7 @@
             button: document.getElementById('startSpeedChallenge')
         };
 
+        // Challenge elements - Endurance
         const enduranceElements = {
             progress: document.getElementById('enduranceProgress'),
             time: document.getElementById('enduranceTime'),
@@ -697,12 +966,61 @@
             button: document.getElementById('startEnduranceChallenge')
         };
 
+        // Challenge elements - Rhythm
         const rhythmElements = {
             bpm: document.getElementById('rhythmBpm'),
             accuracy: document.getElementById('rhythmAccuracy'),
             score: document.getElementById('rhythmScore'),
             indicator: document.getElementById('rhythmIndicator'),
             button: document.getElementById('startRhythmChallenge')
+        };
+
+        // Challenge elements - Precision
+        const precisionElements = {
+            timeLeft: document.getElementById('precisionTimeLeft'),
+            target: document.getElementById('precisionTarget'),
+            score: document.getElementById('precisionScore'),
+            best: document.getElementById('precisionBest'),
+            progress: document.getElementById('precisionProgress'),
+            button: document.getElementById('startPrecisionChallenge')
+        };
+
+        // Challenge elements - Burst
+        const burstElements = {
+            timeLeft: document.getElementById('burstTimeLeft'),
+            phase: document.getElementById('burstPhase'),
+            score: document.getElementById('burstScore'),
+            best: document.getElementById('burstBest'),
+            indicator: document.getElementById('burstIndicator'),
+            button: document.getElementById('startBurstChallenge')
+        };
+
+        // Challenge elements - Simon
+        const simonElements = {
+            level: document.getElementById('simonLevel'),
+            best: document.getElementById('simonBest'),
+            status: document.getElementById('simonStatus'),
+            button: document.getElementById('startSimonChallenge')
+        };
+
+        // Challenge elements - Double Tap
+        const doubleTapElements = {
+            timeLeft: document.getElementById('doubleTapTimeLeft'),
+            valid: document.getElementById('doubleTapValid'),
+            streak: document.getElementById('doubleTapStreak'),
+            best: document.getElementById('doubleTapBest'),
+            progress: document.getElementById('doubleTapProgress'),
+            button: document.getElementById('startDoubleTapChallenge')
+        };
+
+        // Challenge elements - Combo
+        const comboElements = {
+            timeLeft: document.getElementById('comboTimeLeft'),
+            currentStreak: document.getElementById('comboCurrentStreak'),
+            maxStreak: document.getElementById('comboMaxStreak'),
+            best: document.getElementById('comboBest'),
+            progress: document.getElementById('comboProgress'),
+            button: document.getElementById('startComboChallenge')
         };
 
         // Load saved data
@@ -714,6 +1032,11 @@
                     gameState.bestCps = data.bestCps || 0;
                     gameState.challenges.speed.bestScore = data.speedBest || 0;
                     gameState.challenges.endurance.bestTime = data.enduranceBest || null;
+                    gameState.challenges.precision.bestScore = data.precisionBest || 0;
+                    gameState.challenges.burst.bestScore = data.burstBest || 0;
+                    gameState.challenges.simon.bestLevel = data.simonBest || 0;
+                    gameState.challenges.doubleTap.bestScore = data.doubleTapBest || 0;
+                    gameState.challenges.combo.bestCombo = data.comboBest || 0;
                     updateDisplay();
                 } catch (error) {
                     console.error('Failed to load saved data:', error);
@@ -726,7 +1049,12 @@
             const dataToSave = {
                 bestCps: gameState.bestCps,
                 speedBest: gameState.challenges.speed.bestScore,
-                enduranceBest: gameState.challenges.endurance.bestTime
+                enduranceBest: gameState.challenges.endurance.bestTime,
+                precisionBest: gameState.challenges.precision.bestScore,
+                burstBest: gameState.challenges.burst.bestScore,
+                simonBest: gameState.challenges.simon.bestLevel,
+                doubleTapBest: gameState.challenges.doubleTap.bestScore,
+                comboBest: gameState.challenges.combo.bestCombo
             };
             localStorage.setItem('spacebarCounterData', JSON.stringify(dataToSave));
         }
@@ -792,7 +1120,7 @@
             }, 1000);
         }
 
-        // Handle spacebar click
+        // Handle spacebar click with all 8 challenge game logic
         function handleSpacebarClick(event) {
             const now = Date.now();
             
@@ -844,6 +1172,54 @@
                 gameState.challenges.rhythm.score = Math.floor(accuracy * gameState.challenges.rhythm.actualBeats);
             }
 
+            // Handle Precision Challenge
+            if (gameState.challenges.precision.active) {
+                const targetTime = gameState.challenges.precision.targets[gameState.challenges.precision.currentTarget];
+                if (targetTime) {
+                    const currentTime = (now - gameState.challenges.precision.startTime);
+                    const timeDiff = Math.abs(currentTime - targetTime);
+                    if (timeDiff <= 500) { // 500ms tolerance
+                        gameState.challenges.precision.score++;
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.precision.currentTarget++;
+                }
+            }
+
+            // Handle Burst Challenge
+            if (gameState.challenges.burst.active && gameState.challenges.burst.burstPhase) {
+                gameState.challenges.burst.currentBurstClicks++;
+                gameState.challenges.burst.score++;
+            }
+
+            // Handle Double Tap Challenge
+            if (gameState.challenges.doubleTap.active) {
+                const lastClick = gameState.challenges.doubleTap.lastClickTime;
+                if (lastClick && (now - lastClick) <= 500) { // 500ms window for double tap
+                    gameState.challenges.doubleTap.validDoubleTaps++;
+                    gameState.challenges.doubleTap.currentStreak++;
+                    gameState.challenges.doubleTap.maxStreak = Math.max(gameState.challenges.doubleTap.maxStreak, gameState.challenges.doubleTap.currentStreak);
+                    setTimeout(playAchievementSound, 0);
+                } else if (lastClick && (now - lastClick) > 500) {
+                    gameState.challenges.doubleTap.invalidClicks++;
+                    gameState.challenges.doubleTap.currentStreak = 0;
+                }
+                gameState.challenges.doubleTap.lastClickTime = now;
+            }
+
+            // Handle Combo Challenge
+            if (gameState.challenges.combo.active) {
+                const lastClick = gameState.challenges.combo.lastClickTime;
+                if (!lastClick || (now - lastClick) <= gameState.challenges.combo.comboTimeWindow) {
+                    gameState.challenges.combo.currentCombo++;
+                    gameState.challenges.combo.maxCombo = Math.max(gameState.challenges.combo.maxCombo, gameState.challenges.combo.currentCombo);
+                    gameState.challenges.combo.score += gameState.challenges.combo.currentCombo;
+                } else {
+                    gameState.challenges.combo.currentCombo = 1;
+                }
+                gameState.challenges.combo.lastClickTime = now;
+            }
+
             // Create particle effect
             if (event) {
                 createParticle(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
@@ -854,7 +1230,7 @@
             playClickSound();
         }
 
-        // Update display
+        // Update display for all challenges
         function updateDisplay() {
             totalClicksEl.textContent = gameState.totalClicks;
             cpsDisplayEl.textContent = gameState.clicksPerSecond.toFixed(1);
@@ -878,6 +1254,37 @@
             rhythmElements.bpm.textContent = gameState.challenges.rhythm.bpm;
             rhythmElements.accuracy.textContent = gameState.challenges.rhythm.accuracy.toFixed(0) + '%';
             rhythmElements.score.textContent = gameState.challenges.rhythm.score;
+
+            // Update new challenge displays
+            precisionElements.timeLeft.textContent = gameState.challenges.precision.timeLeft + 's';
+            precisionElements.target.textContent = `${gameState.challenges.precision.currentTarget + 1}/${gameState.challenges.precision.totalTargets}`;
+            precisionElements.score.textContent = gameState.challenges.precision.score;
+            precisionElements.best.textContent = gameState.challenges.precision.bestScore;
+            precisionElements.progress.style.width = `${((30 - gameState.challenges.precision.timeLeft) / 30) * 100}%`;
+
+            burstElements.timeLeft.textContent = gameState.challenges.burst.timeLeft + 's';
+            burstElements.phase.textContent = gameState.challenges.burst.burstPhase ? 'BURST!' : 'Wait...';
+            burstElements.score.textContent = gameState.challenges.burst.score;
+            burstElements.best.textContent = gameState.challenges.burst.bestScore;
+            burstElements.indicator.className = gameState.challenges.burst.burstPhase ? 'burst-indicator burst' : 'burst-indicator waiting';
+            burstElements.indicator.textContent = gameState.challenges.burst.burstPhase ? '💥' : '⏳';
+
+            simonElements.level.textContent = gameState.challenges.simon.currentLevel;
+            simonElements.best.textContent = gameState.challenges.simon.bestLevel;
+            simonElements.status.textContent = gameState.challenges.simon.showingSequence ? 'Watch' : 
+                gameState.challenges.simon.waitingForInput ? 'Your turn' : 'Ready';
+
+            doubleTapElements.timeLeft.textContent = gameState.challenges.doubleTap.timeLeft + 's';
+            doubleTapElements.valid.textContent = gameState.challenges.doubleTap.validDoubleTaps;
+            doubleTapElements.streak.textContent = gameState.challenges.doubleTap.currentStreak;
+            doubleTapElements.best.textContent = gameState.challenges.doubleTap.bestScore;
+            doubleTapElements.progress.style.width = `${((30 - gameState.challenges.doubleTap.timeLeft) / 30) * 100}%`;
+
+            comboElements.timeLeft.textContent = gameState.challenges.combo.timeLeft + 's';
+            comboElements.currentStreak.textContent = gameState.challenges.combo.currentCombo;
+            comboElements.maxStreak.textContent = gameState.challenges.combo.maxCombo;
+            comboElements.best.textContent = gameState.challenges.combo.bestCombo;
+            comboElements.progress.style.width = `${((45 - gameState.challenges.combo.timeLeft) / 45) * 100}%`;
         }
 
         // Reset counter
@@ -974,7 +1381,6 @@
                 updateDisplay();
             }, beatInterval);
 
-            // Auto-stop after 30 seconds
             setTimeout(() => {
                 if (intervals.rhythm) {
                     clearInterval(intervals.rhythm);
@@ -989,6 +1395,236 @@
             }, 30000);
         }
 
+        // Precision Challenge
+        function startPrecisionChallenge() {
+            if (gameState.challenges.precision.active) return;
+            
+            const targets = [];
+            for (let i = 0; i < gameState.challenges.precision.totalTargets; i++) {
+                targets.push(Math.random() * 25000 + 2000);
+            }
+            targets.sort((a, b) => a - b);
+            
+            gameState.challenges.precision.active = true;
+            gameState.challenges.precision.timeLeft = 30;
+            gameState.challenges.precision.targets = targets;
+            gameState.challenges.precision.currentTarget = 0;
+            gameState.challenges.precision.score = 0;
+            gameState.challenges.precision.startTime = Date.now();
+            
+            precisionElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            precisionElements.button.disabled = true;
+
+            intervals.precision = setInterval(() => {
+                gameState.challenges.precision.timeLeft--;
+                if (gameState.challenges.precision.timeLeft <= 0) {
+                    clearInterval(intervals.precision);
+                    gameState.challenges.precision.active = false;
+                    
+                    const newBestScore = Math.max(gameState.challenges.precision.score, gameState.challenges.precision.bestScore);
+                    if (gameState.challenges.precision.score > gameState.challenges.precision.bestScore) {
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.precision.bestScore = newBestScore;
+                    gameState.challenges.precision.timeLeft = 30;
+                    
+                    precisionElements.button.textContent = '✅ Completed!';
+                    precisionElements.button.disabled = false;
+                    setTimeout(() => {
+                        precisionElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        // Burst Challenge
+        function startBurstChallenge() {
+            if (gameState.challenges.burst.active) return;
+            
+            gameState.challenges.burst.active = true;
+            gameState.challenges.burst.timeLeft = 60;
+            gameState.challenges.burst.burstPhase = false;
+            gameState.challenges.burst.burstTimeLeft = 0;
+            gameState.challenges.burst.score = 0;
+            gameState.challenges.burst.currentBurstClicks = 0;
+            gameState.challenges.burst.totalBursts = 0;
+            
+            burstElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            burstElements.button.disabled = true;
+
+            const scheduleNextBurst = () => {
+                const waitTime = Math.random() * 8000 + 2000;
+                setTimeout(() => {
+                    if (!gameState.challenges.burst.active) return;
+                    gameState.challenges.burst.burstPhase = true;
+                    gameState.challenges.burst.burstTimeLeft = 3;
+                    gameState.challenges.burst.currentBurstClicks = 0;
+                    gameState.challenges.burst.totalBursts++;
+
+                    setTimeout(() => {
+                        gameState.challenges.burst.burstPhase = false;
+                        gameState.challenges.burst.burstTimeLeft = 0;
+                        
+                        if (gameState.challenges.burst.active && gameState.challenges.burst.timeLeft > 10) {
+                            scheduleNextBurst();
+                        }
+                    }, 3000);
+                }, waitTime);
+            };
+
+            scheduleNextBurst();
+
+            intervals.burst = setInterval(() => {
+                gameState.challenges.burst.timeLeft--;
+                if (gameState.challenges.burst.timeLeft <= 0) {
+                    clearInterval(intervals.burst);
+                    gameState.challenges.burst.active = false;
+                    
+                    const newBestScore = Math.max(gameState.challenges.burst.score, gameState.challenges.burst.bestScore);
+                    if (gameState.challenges.burst.score > gameState.challenges.burst.bestScore) {
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.burst.bestScore = newBestScore;
+                    gameState.challenges.burst.timeLeft = 60;
+                    
+                    burstElements.button.textContent = '✅ Completed!';
+                    burstElements.button.disabled = false;
+                    setTimeout(() => {
+                        burstElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        // Simon Says Challenge
+        function startSimonChallenge() {
+            if (gameState.challenges.simon.active) return;
+            
+            const generateSequence = (level) => {
+                const keys = ['Space', 'Enter', 'KeyA', 'KeyS'];
+                const sequence = [];
+                for (let i = 0; i < level + 2; i++) {
+                    sequence.push(keys[Math.floor(Math.random() * keys.length)]);
+                }
+                return sequence;
+            };
+
+            const initialSequence = generateSequence(1);
+            
+            gameState.challenges.simon.active = true;
+            gameState.challenges.simon.sequence = initialSequence;
+            gameState.challenges.simon.userSequence = [];
+            gameState.challenges.simon.currentLevel = 1;
+            gameState.challenges.simon.showingSequence = true;
+            gameState.challenges.simon.waitingForInput = false;
+            gameState.challenges.simon.sequenceIndex = 0;
+            
+            simonElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            simonElements.button.disabled = true;
+
+            let index = 0;
+            const showSequence = () => {
+                if (index < initialSequence.length) {
+                    setTimeout(() => {
+                        index++;
+                        showSequence();
+                    }, 800);
+                } else {
+                    gameState.challenges.simon.showingSequence = false;
+                    gameState.challenges.simon.waitingForInput = true;
+                    updateDisplay();
+                }
+            };
+            
+            setTimeout(showSequence, 1000);
+        }
+
+        // Double Tap Challenge
+        function startDoubleTapChallenge() {
+            if (gameState.challenges.doubleTap.active) return;
+            
+            gameState.challenges.doubleTap.active = true;
+            gameState.challenges.doubleTap.timeLeft = 30;
+            gameState.challenges.doubleTap.lastClickTime = null;
+            gameState.challenges.doubleTap.validDoubleTaps = 0;
+            gameState.challenges.doubleTap.invalidClicks = 0;
+            gameState.challenges.doubleTap.currentStreak = 0;
+            gameState.challenges.doubleTap.maxStreak = 0;
+            
+            doubleTapElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            doubleTapElements.button.disabled = true;
+
+            intervals.doubleTap = setInterval(() => {
+                gameState.challenges.doubleTap.timeLeft--;
+                if (gameState.challenges.doubleTap.timeLeft <= 0) {
+                    clearInterval(intervals.doubleTap);
+                    gameState.challenges.doubleTap.active = false;
+                    
+                    const score = gameState.challenges.doubleTap.validDoubleTaps * 2 - gameState.challenges.doubleTap.invalidClicks;
+                    const newBestScore = Math.max(score, gameState.challenges.doubleTap.bestScore);
+                    if (score > gameState.challenges.doubleTap.bestScore) {
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.doubleTap.bestScore = newBestScore;
+                    gameState.challenges.doubleTap.timeLeft = 30;
+                    
+                    doubleTapElements.button.textContent = '✅ Completed!';
+                    doubleTapElements.button.disabled = false;
+                    setTimeout(() => {
+                        doubleTapElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        // Combo Challenge
+        function startComboChallenge() {
+            if (gameState.challenges.combo.active) return;
+            
+            gameState.challenges.combo.active = true;
+            gameState.challenges.combo.timeLeft = 45;
+            gameState.challenges.combo.currentCombo = 0;
+            gameState.challenges.combo.maxCombo = 0;
+            gameState.challenges.combo.lastClickTime = null;
+            gameState.challenges.combo.score = 0;
+            
+            comboElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            comboElements.button.disabled = true;
+
+            intervals.combo = setInterval(() => {
+                gameState.challenges.combo.timeLeft--;
+                if (gameState.challenges.combo.timeLeft <= 0) {
+                    clearInterval(intervals.combo);
+                    gameState.challenges.combo.active = false;
+                    
+                    const newBestCombo = Math.max(gameState.challenges.combo.maxCombo, gameState.challenges.combo.bestCombo);
+                    if (gameState.challenges.combo.maxCombo > gameState.challenges.combo.bestCombo) {
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.combo.bestCombo = newBestCombo;
+                    gameState.challenges.combo.timeLeft = 45;
+                    
+                    comboElements.button.textContent = '✅ Completed!';
+                    comboElements.button.disabled = false;
+                    setTimeout(() => {
+                        comboElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+                
+                // Reset combo if too much time has passed since last click
+                const now = Date.now();
+                if (gameState.challenges.combo.lastClickTime && 
+                    (now - gameState.challenges.combo.lastClickTime) > gameState.challenges.combo.comboTimeWindow) {
+                    gameState.challenges.combo.currentCombo = 0;
+                }
+                
+                updateDisplay();
+            }, 1000);
+        }
+
         // Event listeners
         spacebarButtonEl.addEventListener('click', (e) => {
             spacebarButtonEl.classList.add('pressed');
@@ -999,9 +1635,15 @@
         resetButtonEl.addEventListener('click', resetCounter);
         soundToggleEl.addEventListener('click', toggleSound);
 
+        // Challenge button event listeners
         speedElements.button.addEventListener('click', startSpeedChallenge);
         enduranceElements.button.addEventListener('click', startEnduranceChallenge);
         rhythmElements.button.addEventListener('click', startRhythmChallenge);
+        precisionElements.button.addEventListener('click', startPrecisionChallenge);
+        burstElements.button.addEventListener('click', startBurstChallenge);
+        simonElements.button.addEventListener('click', startSimonChallenge);
+        doubleTapElements.button.addEventListener('click', startDoubleTapChallenge);
+        comboElements.button.addEventListener('click', startComboChallenge);
 
         // Keyboard event listener
         document.addEventListener('keydown', (event) => {
