@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spacebar Counter - Test Your Clicking Speed</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #1e293b;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            margin-bottom: 40px;
+            border-radius: 16px;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Main Counter */
+        .counter-section {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .counter-card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            z-index: 1;
+        }
+        
+        .counter-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .counter-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .counter-subtitle {
+            color: #64748b;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+        
+        .counter-display {
+            display: inline-block;
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border-radius: 16px;
+            padding: 32px 48px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .counter-number {
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+        
+        .counter-label {
+            color: #60a5fa;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Spacebar Button */
+        .spacebar-button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 16px;
+            padding: 24px 48px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 32px auto;
+            max-width: 300px;
+        }
+        
+        .spacebar-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+        
+        .spacebar-button:active {
+            transform: scale(0.98);
+        }
+        
+        .spacebar-button.pressed {
+            transform: scale(0.98);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value.cps { color: #16a34a; }
+        .stat-value.best { color: #ea580c; }
+        .stat-value.time { color: #9333ea; }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .reset-btn {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        
+        .reset-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .sound-btn {
+            background: #eab308;
+            color: #1f2937;
+        }
+        
+        .sound-btn:hover {
+            background: #ca8a04;
+        }
+        
+        /* Challenges */
+        .challenges-section {
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 32px;
+        }
+        
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .challenge-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .challenge-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .challenge-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .challenge-icon.speed { 
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .challenge-icon.endurance { 
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        .challenge-icon.rhythm { 
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+        }
+        
+        .challenge-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .challenge-desc {
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .challenge-stats {
+            margin-bottom: 24px;
+        }
+        
+        .challenge-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .challenge-stat-label {
+            color: #64748b;
+        }
+        
+        .challenge-stat-value {
+            font-weight: 600;
+        }
+        
+        .challenge-stat-value.blue { color: #2563eb; }
+        .challenge-stat-value.green { color: #16a34a; }
+        .challenge-stat-value.orange { color: #ea580c; }
+        .challenge-stat-value.purple { color: #9333ea; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-fill.speed { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
+        .progress-fill.endurance { background: linear-gradient(90deg, #10b981, #059669); }
+        .progress-fill.rhythm { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+        
+        .challenge-button {
+            width: 100%;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+        }
+        
+        .challenge-button.speed {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .challenge-button.endurance {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        
+        .challenge-button.rhythm {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+        }
+        
+        .challenge-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .challenge-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .rhythm-indicator {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .rhythm-indicator::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .rhythm-indicator.active {
+            animation: rhythmPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes rhythmPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        /* Particle Effect */
+        .particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 1s ease-out forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .counter-card {
+                padding: 24px;
+            }
+            
+            .counter-number {
+                font-size: 60px;
+            }
+            
+            .counter-title {
+                font-size: 24px;
+            }
+            
+            .spacebar-button {
+                font-size: 18px;
+                padding: 16px 32px;
+            }
+            
+            .challenges-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">⌨️</div>
+                    <div>
+                        <div class="logo-text">Spacebar Counter</div>
+                        <div style="font-size: 12px; color: #64748b;">Test your clicking speed and endurance</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Counter -->
+        <section class="counter-section">
+            <div class="counter-card">
+                <div class="counter-content">
+                    <h2 class="counter-title">Spacebar Counter</h2>
+                    <p class="counter-subtitle">Press the spacebar or tap the button to start counting!</p>
+                    
+                    <div class="counter-display">
+                        <div class="counter-number" id="totalClicks">0</div>
+                        <div class="counter-label">Total Clicks</div>
+                    </div>
+                    
+                    <button class="spacebar-button" id="spacebarButton">
+                        <span>⌨️</span>
+                        <span>SPACEBAR</span>
+                        <div style="font-size: 14px; opacity: 0.8;">Press spacebar or click here</div>
+                    </button>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value cps" id="cpsDisplay">0.0</div>
+                            <div class="stat-label">Clicks/Second</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value best" id="bestCpsDisplay">0.0</div>
+                            <div class="stat-label">Best CPS</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value time" id="totalTimeDisplay">0.0s</div>
+                            <div class="stat-label">Total Time</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-button reset-btn" id="resetButton">
+                            <span>🔄</span>
+                            <span>Reset Counter</span>
+                        </button>
+                        <button class="action-button sound-btn" id="soundToggle">
+                            <span id="soundIcon">🔊</span>
+                            <span id="soundText">Sound: ON</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges -->
+        <section class="challenges-section">
+            <h3 class="section-title">Challenge Games</h3>
+            <div class="challenges-grid">
+                <!-- Speed Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon speed">⚡</div>
+                        <h4 class="challenge-title">Speed Challenge</h4>
+                        <p class="challenge-desc">Click as fast as you can for 10 seconds!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time Left:</span>
+                            <span class="challenge-stat-value blue" id="speedTimeLeft">10s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Current Score:</span>
+                            <span class="challenge-stat-value green" id="speedScore">0</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best Score:</span>
+                            <span class="challenge-stat-value orange" id="speedBest">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill speed" id="speedProgress" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="challenge-button speed" id="startSpeedChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Endurance Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon endurance">💪</div>
+                        <h4 class="challenge-title">Endurance Challenge</h4>
+                        <p class="challenge-desc">Reach 500 clicks as fast as possible!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Progress:</span>
+                            <span class="challenge-stat-value green" id="enduranceProgress">0/500</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Time:</span>
+                            <span class="challenge-stat-value blue" id="enduranceTime">0.0s</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Best Time:</span>
+                            <span class="challenge-stat-value orange" id="enduranceBest">--</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill endurance" id="enduranceProgressBar" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="challenge-button endurance" id="startEnduranceChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+
+                <!-- Rhythm Challenge -->
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon rhythm">🎵</div>
+                        <h4 class="challenge-title">Rhythm Challenge</h4>
+                        <p class="challenge-desc">Follow the beat and click in sync!</p>
+                    </div>
+                    
+                    <div class="challenge-stats">
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">BPM:</span>
+                            <span class="challenge-stat-value purple" id="rhythmBpm">120</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Accuracy:</span>
+                            <span class="challenge-stat-value green" id="rhythmAccuracy">0%</span>
+                        </div>
+                        <div class="challenge-stat">
+                            <span class="challenge-stat-label">Score:</span>
+                            <span class="challenge-stat-value orange" id="rhythmScore">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="rhythm-indicator" id="rhythmIndicator"></div>
+                    
+                    <button class="challenge-button rhythm" id="startRhythmChallenge">
+                        <span>▶️</span>
+                        <span>Start Challenge</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Game State
+        let gameState = {
+            totalClicks: 0,
+            clicksPerSecond: 0,
+            bestCps: 0,
+            startTime: null,
+            lastClickTime: null,
+            soundEnabled: true,
+            challenges: {
+                speed: { active: false, timeLeft: 10, score: 0, bestScore: 0, startTime: null },
+                endurance: { active: false, progress: 0, time: 0, bestTime: null, startTime: null },
+                rhythm: { active: false, bpm: 120, accuracy: 0, score: 0, expectedBeats: 0, actualBeats: 0 }
+            }
+        };
+
+        let intervals = {};
+
+        // DOM Elements
+        const totalClicksEl = document.getElementById('totalClicks');
+        const cpsDisplayEl = document.getElementById('cpsDisplay');
+        const bestCpsDisplayEl = document.getElementById('bestCpsDisplay');
+        const totalTimeDisplayEl = document.getElementById('totalTimeDisplay');
+        const spacebarButtonEl = document.getElementById('spacebarButton');
+        const resetButtonEl = document.getElementById('resetButton');
+        const soundToggleEl = document.getElementById('soundToggle');
+        const soundIconEl = document.getElementById('soundIcon');
+        const soundTextEl = document.getElementById('soundText');
+
+        // Challenge elements
+        const speedElements = {
+            timeLeft: document.getElementById('speedTimeLeft'),
+            score: document.getElementById('speedScore'),
+            best: document.getElementById('speedBest'),
+            progress: document.getElementById('speedProgress'),
+            button: document.getElementById('startSpeedChallenge')
+        };
+
+        const enduranceElements = {
+            progress: document.getElementById('enduranceProgress'),
+            time: document.getElementById('enduranceTime'),
+            best: document.getElementById('enduranceBest'),
+            progressBar: document.getElementById('enduranceProgressBar'),
+            button: document.getElementById('startEnduranceChallenge')
+        };
+
+        const rhythmElements = {
+            bpm: document.getElementById('rhythmBpm'),
+            accuracy: document.getElementById('rhythmAccuracy'),
+            score: document.getElementById('rhythmScore'),
+            indicator: document.getElementById('rhythmIndicator'),
+            button: document.getElementById('startRhythmChallenge')
+        };
+
+        // Load saved data
+        function loadSavedData() {
+            const saved = localStorage.getItem('spacebarCounterData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    gameState.bestCps = data.bestCps || 0;
+                    gameState.challenges.speed.bestScore = data.speedBest || 0;
+                    gameState.challenges.endurance.bestTime = data.enduranceBest || null;
+                    updateDisplay();
+                } catch (error) {
+                    console.error('Failed to load saved data:', error);
+                }
+            }
+        }
+
+        // Save data
+        function saveGameData() {
+            const dataToSave = {
+                bestCps: gameState.bestCps,
+                speedBest: gameState.challenges.speed.bestScore,
+                enduranceBest: gameState.challenges.endurance.bestTime
+            };
+            localStorage.setItem('spacebarCounterData', JSON.stringify(dataToSave));
+        }
+
+        // Sound effects
+        function playClickSound() {
+            if (!gameState.soundEnabled) return;
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (error) {
+                console.log('Audio context not available');
+            }
+        }
+
+        function playAchievementSound() {
+            if (!gameState.soundEnabled) return;
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.4);
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.6);
+            } catch (error) {
+                console.log('Audio context not available');
+            }
+        }
+
+        // Create particle effect
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (document.body.contains(particle)) {
+                    document.body.removeChild(particle);
+                }
+            }, 1000);
+        }
+
+        // Handle spacebar click
+        function handleSpacebarClick(event) {
+            const now = Date.now();
+            
+            // Initialize start time
+            if (!gameState.startTime) {
+                gameState.startTime = now;
+            }
+
+            // Increment counter
+            gameState.totalClicks++;
+            gameState.lastClickTime = now;
+
+            // Calculate CPS
+            const timeElapsed = (now - gameState.startTime) / 1000;
+            gameState.clicksPerSecond = gameState.totalClicks / timeElapsed;
+
+            // Update best CPS
+            if (gameState.clicksPerSecond > gameState.bestCps) {
+                gameState.bestCps = gameState.clicksPerSecond;
+                setTimeout(playAchievementSound, 0);
+            }
+
+            // Handle active challenges
+            if (gameState.challenges.speed.active) {
+                gameState.challenges.speed.score++;
+            }
+            
+            if (gameState.challenges.endurance.active) {
+                gameState.challenges.endurance.progress++;
+                if (gameState.challenges.endurance.progress >= 500) {
+                    const completionTime = (now - gameState.challenges.endurance.startTime) / 1000;
+                    if (!gameState.challenges.endurance.bestTime || completionTime < gameState.challenges.endurance.bestTime) {
+                        gameState.challenges.endurance.bestTime = completionTime;
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.endurance.active = false;
+                    enduranceElements.button.textContent = '✅ Completed!';
+                    enduranceElements.button.disabled = false;
+                    setTimeout(() => {
+                        enduranceElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+            }
+
+            if (gameState.challenges.rhythm.active) {
+                gameState.challenges.rhythm.actualBeats++;
+                const accuracy = Math.min(100, (gameState.challenges.rhythm.actualBeats / Math.max(1, gameState.challenges.rhythm.expectedBeats)) * 100);
+                gameState.challenges.rhythm.accuracy = accuracy;
+                gameState.challenges.rhythm.score = Math.floor(accuracy * gameState.challenges.rhythm.actualBeats);
+            }
+
+            // Create particle effect
+            if (event) {
+                createParticle(event.clientX || window.innerWidth / 2, event.clientY || window.innerHeight / 2);
+            }
+
+            updateDisplay();
+            saveGameData();
+            playClickSound();
+        }
+
+        // Update display
+        function updateDisplay() {
+            totalClicksEl.textContent = gameState.totalClicks;
+            cpsDisplayEl.textContent = gameState.clicksPerSecond.toFixed(1);
+            bestCpsDisplayEl.textContent = gameState.bestCps.toFixed(1);
+            
+            const totalTime = gameState.startTime ? (Date.now() - gameState.startTime) / 1000 : 0;
+            totalTimeDisplayEl.textContent = totalTime.toFixed(1) + 's';
+
+            // Update challenge displays
+            speedElements.timeLeft.textContent = gameState.challenges.speed.timeLeft + 's';
+            speedElements.score.textContent = gameState.challenges.speed.score;
+            speedElements.best.textContent = gameState.challenges.speed.bestScore;
+            speedElements.progress.style.width = `${((10 - gameState.challenges.speed.timeLeft) / 10) * 100}%`;
+
+            enduranceElements.progress.textContent = `${gameState.challenges.endurance.progress}/500`;
+            enduranceElements.time.textContent = gameState.challenges.endurance.time.toFixed(1) + 's';
+            enduranceElements.best.textContent = gameState.challenges.endurance.bestTime ? 
+                gameState.challenges.endurance.bestTime.toFixed(1) + 's' : '--';
+            enduranceElements.progressBar.style.width = `${(gameState.challenges.endurance.progress / 500) * 100}%`;
+
+            rhythmElements.bpm.textContent = gameState.challenges.rhythm.bpm;
+            rhythmElements.accuracy.textContent = gameState.challenges.rhythm.accuracy.toFixed(0) + '%';
+            rhythmElements.score.textContent = gameState.challenges.rhythm.score;
+        }
+
+        // Reset counter
+        function resetCounter() {
+            gameState.totalClicks = 0;
+            gameState.clicksPerSecond = 0;
+            gameState.startTime = null;
+            gameState.lastClickTime = null;
+            updateDisplay();
+        }
+
+        // Toggle sound
+        function toggleSound() {
+            gameState.soundEnabled = !gameState.soundEnabled;
+            soundIconEl.textContent = gameState.soundEnabled ? '🔊' : '🔇';
+            soundTextEl.textContent = `Sound: ${gameState.soundEnabled ? 'ON' : 'OFF'}`;
+        }
+
+        // Speed Challenge
+        function startSpeedChallenge() {
+            if (gameState.challenges.speed.active) return;
+            
+            gameState.challenges.speed.active = true;
+            gameState.challenges.speed.timeLeft = 10;
+            gameState.challenges.speed.score = 0;
+            gameState.challenges.speed.startTime = Date.now();
+            
+            speedElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            speedElements.button.disabled = true;
+
+            intervals.speed = setInterval(() => {
+                gameState.challenges.speed.timeLeft--;
+                if (gameState.challenges.speed.timeLeft <= 0) {
+                    clearInterval(intervals.speed);
+                    gameState.challenges.speed.active = false;
+                    
+                    const newBestScore = Math.max(gameState.challenges.speed.score, gameState.challenges.speed.bestScore);
+                    if (gameState.challenges.speed.score > gameState.challenges.speed.bestScore) {
+                        setTimeout(playAchievementSound, 0);
+                    }
+                    gameState.challenges.speed.bestScore = newBestScore;
+                    gameState.challenges.speed.timeLeft = 10;
+                    
+                    speedElements.button.textContent = '✅ Completed!';
+                    speedElements.button.disabled = false;
+                    setTimeout(() => {
+                        speedElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                    }, 2000);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        // Endurance Challenge
+        function startEnduranceChallenge() {
+            if (gameState.challenges.endurance.active) return;
+            
+            gameState.challenges.endurance.active = true;
+            gameState.challenges.endurance.progress = 0;
+            gameState.challenges.endurance.time = 0;
+            gameState.challenges.endurance.startTime = Date.now();
+            
+            enduranceElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            enduranceElements.button.disabled = true;
+
+            intervals.endurance = setInterval(() => {
+                if (!gameState.challenges.endurance.active) {
+                    clearInterval(intervals.endurance);
+                    return;
+                }
+                
+                gameState.challenges.endurance.time = (Date.now() - gameState.challenges.endurance.startTime) / 1000;
+                updateDisplay();
+            }, 100);
+        }
+
+        // Rhythm Challenge
+        function startRhythmChallenge() {
+            if (gameState.challenges.rhythm.active) return;
+            
+            gameState.challenges.rhythm.active = true;
+            gameState.challenges.rhythm.accuracy = 0;
+            gameState.challenges.rhythm.score = 0;
+            gameState.challenges.rhythm.expectedBeats = 0;
+            gameState.challenges.rhythm.actualBeats = 0;
+            
+            rhythmElements.button.innerHTML = '<span>⏰</span><span>In Progress...</span>';
+            rhythmElements.button.disabled = true;
+            rhythmElements.indicator.classList.add('active');
+
+            const beatInterval = 60000 / gameState.challenges.rhythm.bpm;
+            intervals.rhythm = setInterval(() => {
+                gameState.challenges.rhythm.expectedBeats++;
+                updateDisplay();
+            }, beatInterval);
+
+            // Auto-stop after 30 seconds
+            setTimeout(() => {
+                if (intervals.rhythm) {
+                    clearInterval(intervals.rhythm);
+                }
+                gameState.challenges.rhythm.active = false;
+                rhythmElements.indicator.classList.remove('active');
+                rhythmElements.button.textContent = '✅ Completed!';
+                rhythmElements.button.disabled = false;
+                setTimeout(() => {
+                    rhythmElements.button.innerHTML = '<span>▶️</span><span>Start Challenge</span>';
+                }, 2000);
+            }, 30000);
+        }
+
+        // Event listeners
+        spacebarButtonEl.addEventListener('click', (e) => {
+            spacebarButtonEl.classList.add('pressed');
+            setTimeout(() => spacebarButtonEl.classList.remove('pressed'), 100);
+            handleSpacebarClick(e);
+        });
+
+        resetButtonEl.addEventListener('click', resetCounter);
+        soundToggleEl.addEventListener('click', toggleSound);
+
+        speedElements.button.addEventListener('click', startSpeedChallenge);
+        enduranceElements.button.addEventListener('click', startEnduranceChallenge);
+        rhythmElements.button.addEventListener('click', startRhythmChallenge);
+
+        // Keyboard event listener
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                spacebarButtonEl.classList.add('pressed');
+                setTimeout(() => spacebarButtonEl.classList.remove('pressed'), 100);
+                handleSpacebarClick();
+            }
+        });
+
+        // Initialize
+        loadSavedData();
+        updateDisplay();
+    </script>
+</body>
+</html>
